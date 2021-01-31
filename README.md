@@ -37,6 +37,14 @@ It is also possible to start up your own defined Apache DS *instance* with your 
 
     docker run --name ldap -d -p 389:10389 -e APACHEDS_INSTANCE=yourinstance -v /path/to/your/config.ldif:/bootstrap/conf/config.ldif:ro microservice/apacheds
 
+    docker run \
+    --restart always \
+    --name apacheds \
+    -v /data/apacheds:/var/lib/apacheds \
+    -p 10389:10389 \
+    -p 10636:10636 \
+    -p 60464:60464 \
+    -itd registry.cn-hangzhou.aliyuncs.com/devlib/apacheds:0.1.0
 
 It would be possible to use this ApacheDS image to provide a [Kerberos server](https://directory.apache.org/apacheds/advanced-ug/2.1-config-description.html#kerberos-server) as well. Just provide your own *config.ldif* file for that. Don't forget to expose the right port, then.
 
