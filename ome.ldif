@@ -1,23 +1,23 @@
 version: 1
 
-dn: dc=org
+dn: dc=site
 objectClass: extensibleObject
 objectClass: domain
 objectClass: top
-dc: org
+dc: site
 
-dn: dc=openmicroscopy,dc=org
+dn: dc=microservice,dc=site
 objectClass: extensibleObject
 objectClass: domain
 objectClass: top
-dc: openmicroscopy
+dc: microservice
 
-dn: ou=Users,dc=openmicroscopy,dc=org
+dn: ou=Users,dc=microservice,dc=site
 objectClass: organizationalUnit
 objectClass: top
 ou: Users
 
-dn: ou=Groups,dc=openmicroscopy,dc=org
+dn: ou=Groups,dc=microservice,dc=site
 objectClass: organizationalUnit
 objectClass: top
 ou: Groups

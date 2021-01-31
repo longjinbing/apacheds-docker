@@ -1,4 +1,4 @@
-dn: dc=openmicroscopy,dc=org
-dc: openmicroscopy
+dn: dc=microservice,dc=site
+dc: microservice
 objectclass: domain
 objectclass: top

@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER ome-devel@lists.openmicroscopy.org.uk
+LABEL email lonjinbin@yeah.net
 
 #############################################
 # ApacheDS installation
