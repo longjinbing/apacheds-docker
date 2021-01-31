@@ -16,10 +16,14 @@ ENV APACHEDS_GROUP apacheds
 RUN ln -s ${APACHEDS_DATA}-${APACHEDS_VERSION} ${APACHEDS_DATA}
 VOLUME ${APACHEDS_DATA}
 
+COPY sources.list /etc/apt/sources.list
+
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update \
     && apt-get install -y \
        apt-utils
+
+COPY lib/apacheds-2.0.0.AM26-amd64.deb ${APACHEDS_ARCHIVE}
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get install -y \
@@ -28,7 +32,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
        openjdk-8-jre-headless \
        curl \
        jq \
-    && curl https://downloads.apache.org/directory/apacheds/dist/${APACHEDS_VERSION}/${APACHEDS_ARCHIVE} > ${APACHEDS_ARCHIVE} \
+    # && curl https://downloads.apache.org/directory/apacheds/dist/${APACHEDS_VERSION}/${APACHEDS_ARCHIVE} > ${APACHEDS_ARCHIVE} \
     && dpkg -i ${APACHEDS_ARCHIVE} \
     && rm ${APACHEDS_ARCHIVE}
 
@@ -71,9 +75,7 @@ ADD bin/ldapmanager /usr/local/bin/ldapmanager
 # Correct for hard-coded INSTANCES_DIRECTORY variable
 RUN sed -i "s#/var/lib/apacheds-${APACHEDS_VERSION}#/var/lib/apacheds#" /opt/apacheds-${APACHEDS_VERSION}/bin/apacheds
 
-
-RUN curl -L -o /usr/local/bin/dumb-init \
-    https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 && \
-    chmod +x /usr/local/bin/dumb-init
+ADD lib/dumb-init_1.2.1_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
 
 ENTRYPOINT ["/run.sh"]
